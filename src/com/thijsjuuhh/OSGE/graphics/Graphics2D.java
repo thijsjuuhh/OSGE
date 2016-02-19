@@ -1,6 +1,7 @@
 package com.thijsjuuhh.OSGE.graphics;
 
 import com.thijsjuuhh.OSGE.graphics.sprite.Sprite;
+import com.thijsjuuhh.OSGE.graphics.sprite.SpriteSheet;
 
 public class Graphics2D extends Graphics {
 
@@ -22,6 +23,12 @@ public class Graphics2D extends Graphics {
 
 	}
 
+	public void clear(int col) {
+		for(int i = 0; i < pixels.length; i++) {
+			pixels[i] = col;
+		}
+	}
+	
 	public void renderSprite(int x, int y, Sprite s) {
 		for (int y0 = 0; y0 < s.getHeight(); y0++) {
 			int yPix = y + y0;
@@ -30,7 +37,20 @@ public class Graphics2D extends Graphics {
 				if (!inbounds(xPix, yPix))
 					continue;
 				else
-					pixels[xPix + yPix * WIDTH] = s.pixels[x + y * s.getWidth()];
+					pixels[xPix + yPix * WIDTH] = s.pixels[x0 + y0 * s.getWidth()];
+			}
+		}
+	}
+
+	public void renderSprite(int x, int y, SpriteSheet s) {
+		for (int y0 = 0; y0 < s.getHeight(); y0++) {
+			int yPix = y + y0;
+			for (int x0 = 0; x0 < s.getWidth(); x0++) {
+				int xPix = x + x0;
+				if (!inbounds(xPix, yPix))
+					continue;
+				else
+					pixels[xPix + yPix * WIDTH] = s.pixels[x0 + y0 * s.getWidth()];
 
 			}
 		}
